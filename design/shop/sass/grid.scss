@@ -1,0 +1,115 @@
+$gap: 1rem;
+$columns: 12;
+$max: 1140px;
+$cols : (1,2,3,4,5,6,7,8,9,10,11,12);
+
+@mixin setColClass($prefix){
+	@each $i in $cols {
+		.col-#{$prefix}-#{$i} {
+			width : ($i / $columns)*100%;
+		}
+		.col-#{$prefix}-offset-#{$i} {
+			margin-left: ($i / $columns)*100%;
+		}
+		.float-#{$prefix}-right {
+			float: right;
+		}
+	}
+}
+@mixin setHelpClass($prefix){
+	.show-#{$prefix} {
+		display: block;
+	}
+	.hide-#{$prefix} {
+		display: none;
+	}
+	.center-#{$prefix} {
+		display: table;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.text-center-#{$prefix} {
+		text-align: center;
+	}
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container {
+	width: 100%;
+	max-width: $max;
+	padding: 0 $gap;
+	margin: 0 auto;
+}
+*[class ^= "col-"] {
+	position: relative;
+	min-height: 1px;
+	padding-left: $gap;
+	padding-right: $gap;
+	box-sizing: border-box;
+	width: 100%;
+	float: left;
+}
+*[class ^= "show-"] {
+	display: none;
+}
+*[class ^= "hide-"] {
+	display: block;
+}
+.row {
+	clear: both;
+	margin-left: -$gap;
+	margin-right: -$gap;
+	&.gaprow {
+		*[class ^= "col-"] {margin-bottom: 2*$gap;}
+	}
+	&:after {content: ''; display: block; clear: both;}
+}
+.clear {clear: both;}
+.gap:after {content: ''; display: block; height: $gap;}
+
+/*** Swith OFF ***/
+@include setColClass(mob);
+@media only screen and (min-width: 361px) {
+	@include setColClass(smart);
+}
+@media only screen and (min-width: 641px) {
+	@include setColClass(vtab);
+}
+@media only screen and (min-width: 769px) {
+	@include setColClass(htab);
+}
+@media only screen and (min-width: 1008px) {
+	@include setColClass(swga);
+}
+@media only screen and (min-width: 1265px) {
+	@include setColClass(hd);
+}
+@media only screen and (min-width: 1351px) {
+	@include setColClass(fullhd);
+}
+
+/*** Swith ON ***/
+@media only screen and (min-width: 1350px) {
+	@include setHelpClass(fullhd);
+}
+@media only screen and (max-width: 1350px) {
+	@include setHelpClass(hd);
+}
+@media only screen and (max-width: 1264px) {
+	@include setHelpClass(swga);
+}
+@media only screen and (max-width: 1007px) {
+	@include setHelpClass(htab);
+}
+@media only screen and (max-width: 768px) {
+	@include setHelpClass(vtab);
+}
+@media only screen and (max-width: 640px) {
+	@include setHelpClass(smart);
+}
+@include setHelpClass(mob);
