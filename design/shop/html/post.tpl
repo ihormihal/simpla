@@ -13,13 +13,13 @@
 			<article class="post post-single" itemscope itemType="http://schema.org/BlogPosting">
 				<span class="hidden" itemprop="headline">{$post->name|escape}</span>
 				<div class="meta">
-					<meta itemprop="datePublished" content="{$post->date|date:"Y-m-d"}" itemprop="datePublished" content="2011-06-02T16:00Z"/>
+					<meta itemprop="datePublished" content="{$post->date}"/>
 					<span class="date"><i class="fa fa-calendar"></i><time>{$post->date|date}</time></span>
-					<span class="right"><i class="fa fa-comments-o"></i> 7</span>
+					<span class="right"><i class="fa fa-comments-o"></i> {$comments|count}</span>
 				</div>
 				{if $post->image}
 				<div class="image">
-					<a href="#"><img src="{$config->root_url}/{$config->pages_images_dir}{$post->image}" alt=""></a>
+					<a class="fancybox" itemprop="image" content="{$config->root_url}/{$config->pages_images_dir}{$post->image}" href="{$config->root_url}/{$config->pages_images_dir}{$post->image}"><img src="{$config->root_url}/{$config->pages_images_dir}{$post->image}" alt=""></a>
 				</div>
 				{/if}
 				<div class="content" itemprop="articleBody" data-post="{$post->id}">

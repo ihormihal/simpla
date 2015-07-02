@@ -9,12 +9,14 @@
 	{* Метатеги *}
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+	
 	<meta name="description" content="{$meta_description|escape}">
 	<meta name="author" content="SHOP-GSM">
 	<meta name="keywords" content="{$meta_keywords|escape}" />
 
 	{* Open Graph Protocol *}
-	<meta property="og:title" content="{$meta_title|escape} | SHOP-GSM.NET" />
+	<meta property="og:title" content="{$meta_title|escape}"/>
 	<meta property="og:site_name" content="SHOP-GSM.NET" />
 	<meta property="og:url" content="{$config->root_url}/{url}" />
 	<meta property="og:description" content="{$meta_description|escape}" />

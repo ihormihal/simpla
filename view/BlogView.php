@@ -169,6 +169,9 @@ class BlogView extends View
 		$posts = $this->blog->get_posts($filter);
 		//if(empty($posts))
 			//return false;
+		foreach ($posts as $key => $post) {
+			$post->comments_count = $this->comments->count_comments(array('type'=>'blog', 'object_id'=>$post->id, 'approved'=>1));
+		}
 		
 		// Передаем в шаблон
 		$this->design->assign('posts', $posts);

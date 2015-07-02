@@ -73,8 +73,9 @@
 </div>
 
 <div class="container content" itemscope itemtype="http://schema.org/Product">
-	<span class="hidden" itemprop="name">{$product->name|escape}</span>
-	<span class="hidden" itemprop="brand">{$brand->name|escape}</span>
+	<meta itemprop="name" itemprop="name" content="{$product->name|escape}" />
+	<meta itemprop="brand" content="{$brand->name|escape}" />
+	<meta itemprop="url" content="{$config->root_url}/{url} "/>
 	{$object_id = $product->id}
 	<div class="product single">
 		<div class="row">
@@ -87,6 +88,7 @@
 					<div class="image">
 						<div id="owl-slider" class="owl-carousel">
 							{foreach $product->images as $image}
+							{if $image@first}<meta itemprop="image" content="{$image->filename|resize:640:640}"/>{/if}
 							<a href="{$image->filename|resize:800:800:w}" rel="images" class="item fancybox">
 								<img src="{$image->filename|resize:340:340}" alt="{if $image@first}{$product->name|escape}{/if}">
 							</a>
@@ -102,7 +104,7 @@
 			</div>
 			<div class="col-swga-4 col-vtab-6">
 				<div class="product-rating">
-					<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+					<div class="rating" xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Review-aggregate" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 						<div class="stars">
 							<div class="on" style="width: {$product->rating*20}%;"></div>
 							<div class="live" data-id="{$product->id}">
@@ -113,8 +115,13 @@
 								<span data-rate="5"></span>
 							</div>
 						</div>
-						<span class="rate" itemprop="ratingValue">{$product->rating|string_format:"%.1f"}</span>
-						<span class="votes">(<i class="fa fa-user"></i> <span itemprop="reviewCount">{$product->votes}</span>)</span>
+						<span rel="v:rating">
+					        <span typeof="v:Rating"> 
+					            <span class="rate" property="v:average" itemprop="ratingValue">{$product->rating|string_format:"%.1f"}</span>
+					        </span>
+					    </span>
+						<span class="votes" property="v:votes" itemprop="reviewCount" content="{$product->votes}">(<i class="fa fa-user"></i> <span>{$product->votes}</span>)</span>
+						<meta property="v:itemReviewed" content="{$product->name|escape}" />
 					</div>
 					<!--a href="#comments" class="comments anchor dotted"><i class="fa fa-comments-o"></i> 7 отзывов</a-->
 				</div>
@@ -144,7 +151,8 @@
 						<li data-item="{$v->id}" {if $v@first}class="active"{/if}>
 							<div class="price big">	
 								<span class="old">{if $v->compare_price > 0}{$v->compare_price|convert}{/if}</span>
-								<span class="current" itemprop="price">{if $v->price > 0}{$v->price|convert} {$currency->sign|escape}{/if}</span>
+								<span class="current" itemprop="price" content="{$v->price|convert:null:false}">{if $v->price > 0}{$v->price|convert} {$currency->sign|escape}{/if}</span>
+								<meta itemprop="priceCurrency" content="{$currency->sign|escape}" />
 							</div>
 							<p><a href="#check-price-cut" class="check-price-cut fancy dotted">Узнать о снижении цены</a></p>
 							{if $v->cart_discount > 0}
@@ -156,11 +164,11 @@
 							{if $v->custom}
 							<div class="buttons-holder success">
 								<span class="caption">под заказ</span>
-								<button type="submit" class="btn btn-grey btn-to-cart"><i class="fa fa-cart-plus"></i><span>Заказать</span></button>
+								<button type="submit" class="btn btn-grey btn-to-cart"><i class="fa fa-cart-plus"></i><span>Под заказ</span></button>
 							</div>
 							{else}
 							<div class="buttons-holder success">							
-								<span class="caption" href="http://schema.org/InStock">есть в наличии</span>
+								<span class="caption" itemprop="availability" href="http://schema.org/InStock" content="InStock">есть в наличии</span>
 								<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>Купить</span></button>	
 							</div>
 							{/if}

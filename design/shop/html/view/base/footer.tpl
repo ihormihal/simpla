@@ -61,6 +61,8 @@
 	</div>
 </footer>
 
+{include file="view/base/scheme.tpl"}
+
 <!-- Plugins JS -->
 <script src="design/{$settings->theme|escape}/js/jquery-2.1.3.min.js"></script>
 <script src="design/{$settings->theme|escape}/plugins/fancybox/js/jquery.fancybox.pack.js"></script>
