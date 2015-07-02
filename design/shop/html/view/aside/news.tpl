@@ -12,7 +12,7 @@
 			</div>
 			<div class="content">
 				<div class="title"><a href="blog/{$post->url}">{$post->name|escape}</a></div>
-				<div class="date"><i class="fa fa-calendar"></i><time pubdate="{$post->date|date}">{$post->date|date:"d M Y"}</time></div>
+				<div class="date"><i class="fa fa-calendar"></i><time datetime="{$post->date}">{$post->date|date:"d M Y"}</time></div>
 			</div>
 		</li>
 		{/foreach}

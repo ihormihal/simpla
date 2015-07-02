@@ -9,6 +9,7 @@
 			<div class="products">
 				<h2 class="title upper orange-text-light mb0"><i class="fa fa-thumbs-o-up"></i>Рекомендуемые товары</h2>
 				<div class="row">
+				{$row = 'featured'}
 				{foreach $featured_products as $product}
 					{include file="view/product/grid.product.tpl"}
 				{/foreach}
@@ -23,6 +24,7 @@
 			<div class="products">
 				<h2 class="title upper red-text"><i class="fa fa-tags"></i>Акционные товары</h2>
 				<div class="row">
+					{$row = 'discounted'}
 					{foreach $discounted_products as $product}
 					{include file="view/product/grid.product.tpl"}
 					{/foreach}

@@ -114,7 +114,7 @@
 						{if $payment_methods && !$payment_method && $order->total_price>0}
 						<div class="box">
 							<h3 class="title thin">Способ оплаты</h3>
-							<label for="shipping-method">Выберите способ доставки</label>
+							<label for="payment-method">Выберите способ оплаты</label>
 							<select class="select-source full" name="payment_method_id" data-target="#method-description">
 								{foreach $payment_methods as $method}
 									<option {if $method@first}selected{/if} data-item="{$method->id}" value="{$method->id}">{$method->name}</option>

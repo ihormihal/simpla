@@ -19,8 +19,8 @@
 					<span class="rate">{$product->rating|string_format:"%.1f"}</span><span class="votes">(<i class="fa fa-user"></i> {$product->votes})</span>
 				</div>
 				<form action="ajax/cart.php" method="GET">
-					{if $product->variants|count > 0}						
-						<select name="variant" class="select-source full {if $product->variants|count<2}hidden{/if}" data-target="#prices-{$product->id}">
+					{if $product->variants|count > 1}						
+						<select name="variant" class="select-source full {if $product->variants|count<2}hidden{/if}" data-target="#s-{$row}-prices-{$product->id}">
 						{foreach $product->variants as $v}
 							<option {if $v@first}selected{/if}
 								data-item = "{$v->id}"
@@ -29,9 +29,12 @@
 						{/foreach}
 						</select>
 					{else}
-					<p class="not-available">нет в наличии</p>
+					{foreach $product->variants as $v}
+						<input type="hidden" name="variant" value="{$v->id}">
+					{/foreach}
 					{/if}
-					<ul id="prices-{$product->id}" class="ul hlist">
+					{if $product->variants|count == 0}<p class="not-available">нет в наличии</p>{/if}
+					<ul id="#s-{$row}-prices-{$product->id}" class="ul hlist">
 						{foreach $product->variants as $v}
 						<li data-item="{$v->id}" {if $v@first}class="active"{/if}>
 							<div class="price">
@@ -44,7 +47,7 @@
 							{if $v->custom}
 								<button type="submit" class="btn btn-grey btn-to-cart"><i class="fa fa-cart-plus"></i><span>Под заказ</span></button>
 							{else}
-								<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>В корзину</span></button>
+								<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>Купить</span></button>
 							{/if}
 						</li>	
 						{/foreach}

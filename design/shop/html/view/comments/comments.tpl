@@ -2,16 +2,17 @@
 {* Рекурсивная функция вывода дерева комментариев *}
 {function name=comments_tree}
 	{if $comments}
+		{if $product}<span class="hidden" itemprop="itemReviewed">{$product->name|escape}</span>{/if}
 		<ul class="ul comments">
 		{foreach $comments as $comment}
 			{* Показываем только одобренные *}
 			{if $comment->approved}
 				<li class="comment {if $comment->admin}admin{/if}">
 					<div class="head">
-						<span class="name" itemprop="name"><i class="fa fa-user"></i><span>{$comment->name|escape}</span></span>
-						<span class="date"><i class="fa fa-calendar"></i><time itemprop="publishDate" content="{$comment->date|date:"Y-m-d"}">{$comment->date|date}, {$comment->date|time}</time></span>
+						<span class="name" itemprop="author"><i class="fa fa-user"></i><span>{$comment->name|escape}</span></span>
+						<span class="date"><i class="fa fa-calendar"></i><time datePublished="{$comment->date}" content="{$comment->date|date:"Y-m-d"}">{$comment->date|date}, {$comment->date|time}</time></span>
 					</div>
-					<div class="text" itemprop="description">{$comment->text|escape|nl2br}</div>
+					<div class="text" itemprop="reviewBody">{$comment->text|escape|nl2br}</div>
 					<div class="foot">
 						<a data-form="#comment-answer-{$comment->id}" href="ajax/comment.form.php?parent={$comment->id}&type={$comment->type}&object_id={$comment->object_id}" class="dotted comment-answer">ответить</a>
 						<span class="comment-rate">

@@ -45,6 +45,13 @@ class ProductsView extends View
 			$category = $this->categories->get_category((string)$category_url);
 			if (empty($category) || (!$category->visible && empty($_SESSION['admin'])))
 				return false;
+
+			$repeaters_ids = array(119,120,116,125,195,196,93,170,169,115,171,172,173,94,131,89,88,87,86,136,85,235,236,237,238,234,95,129,130,190,188,191,118,189,193,96,184,185,186,187,80,92);
+			$repeaters = false;
+			if(in_array($category->id,$repeaters_ids))
+				$repeaters = true;
+
+			$this->design->assign('repeaters', $repeaters);
 			$this->design->assign('category', $category);
 			$filter['category_id'] = $category->children;
 		}

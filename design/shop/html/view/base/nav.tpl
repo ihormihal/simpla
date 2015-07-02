@@ -2,10 +2,12 @@
 	<div class="container">
 		<nav>
 			{if $categories}
-			<ul class="ul">
-			{foreach $categories as $c}
+			<ul class="ul" id="main-nav">
+			{foreach $categories as $key => $c}
 			{if $c->visible}
-				<li class="{if $category->id == $c->id}active{/if}">
+				{$navitem = ''}
+				{if $category->id == $c->id}{$navitem = 'active'}{/if}
+				<li class="{$navitem}">
 					<a href="catalog/{$c->url}" data-category="{$c->id}"><span>{$c->name}</span></a>
 					{if $c->subcategories}
 					<div class="menu-window">
@@ -17,13 +19,15 @@
 								<ul class="sub-menu">
 									{foreach $c->subcategories as $sc}
 									{if $sc->visible}
-									<li class="{if $category->id == $sc->id}active{/if}">
+									{if $category->id == $sc->id}{$navitem = 'active'}{/if}
+									<li class="{$navitem}">
 										<a href="catalog/{$sc->url}" data-category="{$sc->id}">{$sc->name}</a>
 										{if $sc->subcategories}
 											<ul>
 												{foreach $sc->subcategories as $ssc}
 												{if $ssc->visible}
-												<li class="{if $category->id == $ssc->id}active{/if}"><a href="catalog/{$ssc->url}">{$ssc->name}</a></li>
+												{if $category->id == $ssc->id}{$navitem = 'active'}{/if}
+												<li class="{$navitem}"><a href="catalog/{$ssc->url}">{$ssc->name}</a></li>
 												{/if}
 												{/foreach}
 											</ul>
@@ -56,7 +60,7 @@
 												<span class="rate">{$category_product->rating|string_format:"%.1f"}</span><span class="votes">(<i class="fa fa-user"></i> {$category_product->votes})</span>
 											</div>
 											<form action="ajax/cart.php" method="GET">
-												{if $category_product->variants|count > 0}						
+												{if $category_product->variants|count > 1}						
 													<select name="variant" class="select-source full {if $category_product->variants|count<2}hidden{/if}" data-target="#prices-{$category_product->id}">
 													{foreach $category_product->variants as $v}
 														<option {if $v@first}selected{/if}
@@ -66,6 +70,7 @@
 													{/foreach}
 													</select>
 												{/if}
+												{if $product->variants|count == 0}<p class="not-available">нет в наличии</p>{/if}
 												<ul id="prices-{$category_product->id}" class="ul hlist">
 													{foreach $category_product->variants as $v}
 													<li data-item="{$v->id}" {if $v@first}class="active"{/if}>
@@ -79,7 +84,7 @@
 														{if $v->custom}
 															<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>Под заказ</span></button>
 														{else}
-															<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>В корзину</span></button>
+															<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>Купить</span></button>
 														{/if}
 													</li>	
 													{/foreach}
@@ -93,6 +98,7 @@
 						</div>
 					</div>
 					{/if}
+					<div class="hidden item-state">{$navitem}</div>
 				</li>
 			{/if}
 			{/foreach}

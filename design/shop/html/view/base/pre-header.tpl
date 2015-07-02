@@ -5,11 +5,11 @@
 				<h1>{$pagetitle}</h1>
 			</div>
 			<div class="col-swga-6">
-				<ul class="ul breadcrumbs">
+				<ul class="ul breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
 					{foreach $crumbs as $crumb => $link}
-					<li><a href="{$link}">{$crumb}</a></li>
+					<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{$link}" itemprop="name">{$crumb}</a></li>
 					{/foreach}
-					<li><span>{$pagetitle}</span></li>
+					<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">{$pagetitle}</span></li>
 				</ul>
 			</div>
 		</div>

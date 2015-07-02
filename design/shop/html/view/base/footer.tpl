@@ -61,6 +61,27 @@
 	</div>
 </footer>
 
+<!-- Plugins JS -->
+<script src="design/{$settings->theme|escape}/js/jquery-2.1.3.min.js"></script>
+<script src="design/{$settings->theme|escape}/plugins/fancybox/js/jquery.fancybox.pack.js"></script>
+<script src="design/{$settings->theme|escape}/plugins/owl-carousel/js/owl.carousel.min.js"></script>
+<script src="design/{$settings->theme|escape}/plugins/ion-range-slider/js/ion.rangeSlider.min.js"></script>
+<script src="design/{$settings->theme|escape}/plugins/maskedinput/jquery.maskedinput.min.js"></script>
+<script src="design/{$settings->theme|escape}/plugins/toast/jquery.toast.min.js"></script>
+
+<!-- Custom JS -->
+<script src="design/{$settings->theme|escape}/js/owl.js"></script>
+<script src="design/{$settings->theme|escape}/js/app.js"></script>
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="design/{$settings->theme|escape}/js/gmap.js"></script>
+
+<!-- Services JS -->
+{if $smarty.session.admin == 'admin'}
+<script src ="js/admintooltip/admintooltip.js" type="text/javascript"></script>
+<link   href="js/admintooltip/css/admintooltip.css" rel="stylesheet" type="text/css" /> 
+{/if}
+
 {literal}
 <script>
 (function (i, s, o, g, r, a, m) {

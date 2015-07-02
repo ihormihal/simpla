@@ -23,7 +23,6 @@ $red: #df4104;
 $yellow: #FFD203;
 $light_yellow: #FFDE49;
 
-
 $color_facebook : #004b99;
 $color_vk	   : #0069b3;
 $color_google   : #df4104;
@@ -352,6 +351,7 @@ a.dotted, a span.dotted {border-bottom: 1px dotted $blue;}
 }
 
 .btn-show-hover, .btn-show-click {
+	display: inline-block; width: 1rem;
 	cursor: pointer;
 	.fa:before {content: "\f107";}
 	.target {
@@ -1437,5 +1437,11 @@ footer {
 	header .input-with-icon {margin: 1rem 0;}
 	.steps .step {
 		span {display: none;}
+	}
+}
+@media only screen and (max-width: 480px) {
+	.products .product {
+		height: auto;
+		.product-wrapper {height: auto;}
 	}
 }

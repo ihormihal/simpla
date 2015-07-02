@@ -7,8 +7,6 @@
 
 {include file='view/base/pre-header.tpl'}
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="design/{$settings->theme|escape}/js/gmap.js"></script>
 <div id="shop-map" class="google-map" data-pin="design/{$settings->theme|escape}/images/pin-shop.png" style="height:400px; width:100%;"></div>
 <div class="container">
 	<div class="horizontal-tabs contact-tabs">

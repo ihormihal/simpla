@@ -14,7 +14,7 @@
 			<div class="col-swga-4">
 				<div class="wrapper">
 					<div class="image"><img src="{$product->images[0]->filename|resize:70:70}"></div>
-					<div class="name">{$product->name|escape}</div>
+					<div class="name">{$product->name|escape|truncate:30}</div>
 					<div class="links">
 						<a class="dotted" href="#description">Описание</a>
 						{if $product->features}<a class="dotted" href="#features">Характеристики</a>{/if}
@@ -38,9 +38,9 @@
 						{if $product->variants|count > 0}
 						<div class="col-swga-8">
 							{if $variant->custom} 
-							<button type="submit" class="btn btn-grey btn-to-cart"><i class="fa fa-cart-plus"></i><span>Заказать</span></button>
+							<button type="submit" class="btn btn-grey btn-to-cart"><i class="fa fa-cart-plus"></i><span>Под заказ</span></button>
 							{else}
-							<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>В корзину</span></button>	
+							<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>Купить</span></button>	
 							{/if}
 						</div>
 						{else}
@@ -74,6 +74,7 @@
 
 <div class="container content" itemscope itemtype="http://schema.org/Product">
 	<span class="hidden" itemprop="name">{$product->name|escape}</span>
+	<span class="hidden" itemprop="brand">{$brand->name|escape}</span>
 	{$object_id = $product->id}
 	<div class="product single">
 		<div class="row">
@@ -122,7 +123,7 @@
 				
 				<form action="ajax/cart.php" method="GET">
 
-					{if $product->variants|count > 0}
+					{if $product->variants|count > 1}
 						<p>Цена:</p>					
 						<select name="variant" class="select-source full {if $product->variants|count<2}hidden{/if}" data-target="#prices-{$product->id}">
 						{foreach $product->variants as $v}
@@ -133,8 +134,11 @@
 						{/foreach}
 						</select>
 					{else}
-					<p class="not-available">нет в наличии</p>
+					{foreach $product->variants as $v}
+						<input type="hidden" name="variant" value="{$v->id}">
+					{/foreach}
 					{/if}
+					{if $product->variants|count == 0}<p class="not-available">нет в наличии</p>{/if}
 					<ul id="prices-{$product->id}" class="ul hlist" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 						{foreach $product->variants as $v}
 						<li data-item="{$v->id}" {if $v@first}class="active"{/if}>
@@ -157,7 +161,7 @@
 							{else}
 							<div class="buttons-holder success">							
 								<span class="caption" href="http://schema.org/InStock">есть в наличии</span>
-								<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>В корзину</span></button>	
+								<button type="submit" class="btn btn-blue btn-to-cart"><i class="fa fa-cart-plus"></i><span>Купить</span></button>	
 							</div>
 							{/if}
 						</li>
@@ -192,7 +196,7 @@
 					{foreach $product->variants as $v}
 						{if $v@first}
 							<div class="price">
-							{if $v->price > 1000}
+							{if $v->price|convert:null:false > 1000}
 								<span class="old">30 грн</span>
 								<span class="current">БЕСПЛАТНО</span>
 							{else}

@@ -106,7 +106,7 @@
 									<li>
 										<i class="fa fa-phone"></i><span class="city"> {$place->city}</span>
 										<span class="code">{$place->phones[0]['code']}</span><span class="phone phone-xx">{$place->phones[0]['number']}</span>
-										<span class="btn-show-click">
+										<div class="btn-show-click">
 											<i class="fa"></i>
 											<ul class="ul target">
 												<li><span class="city">{$place->city}</span></li>
@@ -114,7 +114,7 @@
 												<li><span class="code">{$phone['code']}</span><span class="phone">{$phone['number']}</span></li>
 												{/foreach}
 											</ul>
-										</span>
+										</div>
 									</li>
 									{/if}
 									{/foreach}

@@ -137,7 +137,7 @@
 			Скидка через корзину
 		</td>
 		<td align=right style="padding:6px; text-align:right; width:170; background-color:#ffffff; border:1px solid #e0e0e0;font-family:arial;">
-			{$order->cart_discount}&nbsp;{$currency->sign}
+			{$order->cart_discount|convert:$currency->id}&nbsp;{$currency->sign}
 		</td>
 	</tr>
 	{/if}
